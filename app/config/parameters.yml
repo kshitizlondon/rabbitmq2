@@ -29,3 +29,9 @@ parameters:
             exchange_options:   {name: 'exchange_name', type: direct, auto_delete: false, durable: true}
             queue_options:      {name: 'sample', auto_delete: false}
             callback:           rabbitmq.callback.service
+
+    rabbitmq_rpc_clients:
+        integer_store:
+            connection:                  default
+            expect_serialized_response:  false
+            unserializer:                json_decode

@@ -32,4 +32,19 @@ class DefaultController extends Controller
 
         return new Response($message);
     }
+
+    /**
+     * @Route("/rpc", name="send_message_using _rpc")
+     */
+    public function rpcAction()
+    {
+        $requestId = mt_rand(5,10);
+        $client = $this->get('old_sound_rabbit_mq.integer_store_rpc');
+        $client->addRequest(serialize(array('min' => 0, 'max' => 10)), 'random_int', $requestId);
+        $replies = $client->getReplies();
+
+        if (array_key_exists($requestId, $replies)) {
+            return new Response(json_encode($replies));
+        }
+    }
 }
