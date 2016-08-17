@@ -1,0 +1,31 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: mysql
+    database_port: null
+    database_name: development
+    database_user: root
+    database_password: rootpass
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: abfb793c81a1ea6c6c24638e94b22a2d792af934
+    # connection parameters
+    rabbitmq_connections:
+        default: { host: 'rabbitmq', port: 5672, user: 'guest', password: 'guest', vhost: '/' }
+
+    # define producers
+    rabbitmq_producers:
+        sample:
+            connection:         default
+            exchange_options:   {name: 'hello', type: direct, auto_delete: false, durable: true}
+        hello_rabbitmq:
+                    connection:       default
+                    exchange_options: {name: 'hello', type: direct}
+    # define consumers
+    rabbitmq_consumers:
+        sample:
+            connection:         default
+            exchange_options:   {name: 'exchange_name', type: direct, auto_delete: false, durable: true}
+            queue_options:      {name: 'sample', auto_delete: false}
+            callback:           rabbitmq.callback.service
